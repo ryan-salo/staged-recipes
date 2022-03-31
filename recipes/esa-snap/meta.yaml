@@ -1,63 +1,27 @@
-# This file created by conda-build 3.21.4
-# meta.yaml template originally from:
-# /var/lib/jenkins/workspace/snap-conda_master/conda.recipe, last modified Thu Jun 10 12:47:46 2021
-# ------------------------------------------------
-
 package:
-  name: snap
+  name: esa-snap
   version: 8.0.0
+  
 source:
-  fn: esa-snap_sentinel_unix_8_0.sh
-  md5: dcc44c6e305c6f299d4955a699461243
-  url: https://download.esa.int/step/snap/8.0/installers/esa-snap_sentinel_unix_8_0.sh
+  fn:  esa-snap_sentinel_unix_8_0.sh                                                    [unix]
+  url: https://download.esa.int/step/snap/8.0/installers/esa-snap_sentinel_unix_8_0.sh  [unix]
+  md5: dcc44c6e305c6f299d4955a699461243                                                 [unix]
+
 build:
-  number: '0'
-  string: py39_0
+  number: 0
+
 requirements:
   host:
-    - _libgcc_mutex 0.1 conda_forge
-    - _openmp_mutex 4.5 1_gnu
-    - ca-certificates 2021.5.30
-    - certifi 2021.5.30 
-    - copy-jdk-configs-cos6-x86_64 3.3
-    - java-1.7.0-openjdk-cos6-x86_64 1.7.0.181
-    - jpackage-utils-cos6-x86_64 1.7.5
-    - jpy 0.9.0
-    - kernel-headers_linux-64 2.6.32
-    - ld_impl_linux-64 2.35.1
-    - libffi 3.3
-    - libgcc-ng 9.3.0
-    - libgomp 9.3.0
-    - libjpeg-turbo-cos6-x86_64 1.2.1
-    - libstdcxx-ng 9.3.0
-    - ncurses 6.2
-    - nspr-cos6-x86_64 4.19.0
-    - nss-cos6-x86_64 3.36.0
-    - nss-softokn-cos6-x86_64 3.14.3
-    - nss-softokn-freebl-cos6-x86_64 3.14.3
-    - nss-util-cos6-x86_64 3.36.0
-    - openssl 1.1.1k
-    - pip 21.1.2
-    - python 3.9.4
-    - python_abi 3.9
-    - readline 8.1
-    - setuptools 49.6.0
-    - sqlite 3.35.5
-    - sysroot_linux-64 2.12
-    - tk 8.6.10
-    - tzdata 2021a
-    - wheel 0.36.2
-    - xz 5.2.5
-    - zlib 1.2.11
-  run:
-    - java-1.7.0-openjdk-cos6-x86_64=1.7.0.181
+    - python
     - jpy=0.9.0
-    - python >=3.9,<3.10.0a0
-    - python_abi 3.9.*
+    - java-1.7.0-openjdk-cos6-x86_64=1.7.0.181
+    
+  run:
+    - python
+    - jpy=0.9.0
+    - java-1.7.0-openjdk-cos6-x86_64=1.7.0.181
+
 about:
   home: https://step.esa.int
   license: Apache License 2.0
-  summary: ESA Sentinel Application Platform (SNAP), adapted from the Terradue snap package.
-extra:
-  copy_test_source_files: true
-  final: true
+  summary: ESA Sentinel Application Platform (SNAP)
