@@ -1,5 +1,64 @@
-SNAP_PKG='esa-snap_sentinel_unix_8_0.sh'
+#/usr/bin/bash
+#
+#
+#
 
+# create source dir and move install script to common name
 mkdir -p $PREFIX/snap-src
+SNAP_PKG=$PREFIX/snap-src/esa-snap_sentinel_unix.sh
+mv $SRC_DIR/esa-snap_sentinel_unix_*.sh $SNAP_PKG
 
-cp $SRC_DIR/$SNAP_PKG $PREFIX/snap-src/
+# install snap
+chmod 755 $SNAP_PKG
+$SNAP_PKG -q -dir $PREFIX/snap &>> $PREFIX/messages.txt
+
+# remove snap
+rm -fr $SNAP_PKG
+
+# setup snap home/paths
+SNAP_HOME="$PREFIX/snap/.snap"
+
+echo "SNAP_HOME is $SNAP_HOME" &>> $PREFIX/messages.txt
+echo "updating snap.userdir in  $PREFIX/snap/etc/snap.properties " &>> $PREFIX/messages.txt
+sed -i "s!#snap.userdir=!snap.userdir=$SNAP_HOME!g" $PREFIX/snap/etc/snap.properties 
+
+echo "updating default_userdir in $PREFIX/snap/etc/snap.conf " &>> $PREFIX/messages.txt
+sed -i "s!\${HOME}!$PREFIX/snap/!g" $PREFIX/snap/etc/snap.conf &>> $PREFIX/messages.txt
+
+echo "updating snap modules" &>> $PREFIX/messages.txt
+$PREFIX/snap/bin/snap --nosplash --nogui --modules --update-all 2>&1 | while read -r line; do
+    echo "$line"
+    [ "$line" = "updates=0" ] && sleep 2 && pkill -TERM -f "snap/jre/bin/java"
+done
+# $PREFIX/snap/bin/snap --nosplash --nogui --modules --update-all
+
+echo "update concluded" &>> $PREFIX/messages.txt
+
+echo "Give read/write permissions for snap home folder"  &>> $PREFIX/messages.txt
+chmod -R 777 $SNAP_HOME &>> $PREFIX/messages.txt
+
+echo "setting python_version variable" &>> $PREFIX/messages.txt
+python_version=$( $PREFIX/bin/python -c 'import sys; print("{}.{}".format(sys.version_info[0], sys.version_info[1]))' )
+echo "python_version is $python_version " &>> $PREFIX/messages.txt
+
+echo "setting max jvm mem to 40gb " &>> $PREFIX/messages.txt
+echo -e "-Xmx40G" >> $SNAP_HOME/bin/gpt.vmoptions
+
+mkdir -p $SNAP_HOME/system/var/log
+cat $PREFIX/messages.txt >> $SNAP_HOME/system/var/log/messages.log
+
+# adding snap binaries to PATH
+ACTIVATE_DIR=$PREFIX/etc/conda/activate.d
+DEACTIVATE_DIR=$PREFIX/etc/conda/deactivate.d
+
+mkdir -p $ACTIVATE_DIR
+mkdir -p $DEACTIVATE_DIR
+
+echo "#!/bin/bash 
+export PATH=$PREFIX/snap/bin:\$PATH" >> $ACTIVATE_DIR/env_vars.sh
+
+echo "#!/bin/bash
+PATH=\$(echo \$PATH | sed -e 's@$PREFIX/snap/bin:@@g')
+export PATH=\$PATH"  >>  $DEACTIVATE_DIR/env_vars.sh
+
+
