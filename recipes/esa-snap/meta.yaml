@@ -1,4 +1,4 @@
-{% set version_major = "8" %}
+{% set version_major = "9" %}
 {% set version_minor = "0" %}
 {% set version_hotfix = "0" %}
 
@@ -7,9 +7,9 @@ package:
   version: "{{version_major}}.{{version_minor}}.{{version_hotfix}}"
   
 source:
-  fn:  esa-snap_sentinel_unix_{{version_major}}_{{version_minor}}.sh
-  url: https://download.esa.int/step/snap/{{version_major}}.{{version_minor}}/installers/esa-snap_sentinel_unix_{{version_major}}_{{version_minor}}.sh
-  md5: dcc44c6e305c6f299d4955a699461243
+  fn:  esa-snap_all_unix_{{version_major}}_{{version_minor}}_{{version_hotfix}}.sh
+  url: https://download.esa.int/step/snap/{{version_major}}.{{version_minor}}/installers/esa-snap_all_unix_{{version_major}}_{{version_minor}}_{{version_hotfix}}.sh
+  md5: d7db246ed952832261b4bdae98a03246
 
 build:
   number: 0
