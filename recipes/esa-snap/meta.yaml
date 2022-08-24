@@ -21,14 +21,14 @@ requirements:
     - pyrosar
     - freetype
     - fontconfig
-    - open-fonts
+    - fonts-conda-forge
     
   run:
     - python
     - pyrosar
     - freetype
     - fontconfig
-    - open-fonts
+    - fonts-conda-forge
 
 test:
   commands:
