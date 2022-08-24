@@ -19,11 +19,17 @@ requirements:
   host:
     - python
     - pyrosar
+    - freetype
+    - fontconfig
+    - open-fonts
     
   run:
     - python
     - pyrosar
-  
+    - freetype
+    - fontconfig
+    - open-fonts
+
 test:
   commands:
     - test -f $PREFIX/snap/bin/snap
