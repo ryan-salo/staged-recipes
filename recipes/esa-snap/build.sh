@@ -3,10 +3,13 @@
 #
 #
 
+# Set Fonts directory
+JAVA_FONTS=$PREFIX/fonts
+
 # create source dir and move install script to common name
 mkdir -p $PREFIX/snap-src
-SNAP_PKG=$PREFIX/snap-src/esa-snap_sentinel_unix.sh
-mv $SRC_DIR/esa-snap_sentinel_unix_*.sh $SNAP_PKG
+SNAP_PKG=$PREFIX/snap-src/esa-snap_all_unix.sh
+mv $SRC_DIR/esa-snap_all_unix_*.sh $SNAP_PKG
 
 # install snap
 chmod 755 $SNAP_PKG
