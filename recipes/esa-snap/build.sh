@@ -33,7 +33,7 @@ echo "updating snap modules" &>> $PREFIX/messages.txt
 #     echo "$line"
 #     [ "$line" = "updates=0" ] && sleep 2 && pkill -TERM -f "snap/jre/bin/java"
 # done
-$PREFIX/snap/bin/snap --nosplash --nogui --modules --update-all
+$PREFIX/snap/bin/snap -J-DJAVA_FONTS=$PREFIX/fonts --nosplash --nogui --modules --update-all
 
 echo "update concluded" &>> $PREFIX/messages.txt
 
