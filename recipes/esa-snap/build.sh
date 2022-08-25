@@ -4,7 +4,7 @@
 #
 
 # Set Fonts directory
-JAVA_FONTS=$PREFIX/fonts
+export JAVA_FONTS=$PREFIX/fonts
 
 # create source dir and move install script to common name
 mkdir -p $PREFIX/snap-src
@@ -13,7 +13,7 @@ mv $SRC_DIR/esa-snap_all_unix_*.sh $SNAP_PKG
 
 # install snap
 chmod 755 $SNAP_PKG
-$SNAP_PKG -q -dir $PREFIX/snap &>> $PREFIX/messages.txt
+$SNAP_PKG -q -J-DJAVA_FONTS=$PREFIX/fonts -dir $PREFIX/snap &>> $PREFIX/messages.txt
 
 # remove snap
 rm -fr $SNAP_PKG

@@ -22,6 +22,7 @@ requirements:
     - freetype
     - fontconfig
     - fonts-conda-forge
+    - java-1.7.0-openjdk-cos6-x86_64
     
   run:
     - python
@@ -29,6 +30,7 @@ requirements:
     - freetype
     - fontconfig
     - fonts-conda-forge
+    - java-1.7.0-openjdk-cos6-x86_64
 
 test:
   commands:
